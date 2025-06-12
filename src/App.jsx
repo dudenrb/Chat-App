@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Search, Send, Smile, Paperclip, ChevronLeft, Info, X } from 'lucide-react'; // Added X icon for clear search
-import './App.css';
-
+import { Menu, Search, Send, Smile, Paperclip, ChevronLeft, Info, X } from 'lucide-react';
+import './App.css'; // Import your CSS styles
+// Main App component
 function App() {
     const [selectedContact, setSelectedContact] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [contacts, setContacts] = useState([
         { id: 'nr', name: 'Nikhil Raj', status: 'Online', lastMessage: "I've sent you the latest project f ...", time: '12:45 PM', avatar: 'NR' },
         { id: 'sb', name: 'Sruti Bajpayi', status: 'Offline', lastMessage: "Are we still meeting for coffee to ...", time: '08:13 AM', avatar: 'SB' },
-        { id: 'nraj', name: 'Nishant Raj', status: 'Online', lastMessage: "The design team loved your pre...", time: 'Yesterday', avatar: 'NR' }, // Changed ID from 'nr' to 'nraj' to be unique
+        { id: 'nraj', name: 'Nishant Raj', status: 'Online', lastMessage: "The design team loved your pre...", time: 'Yesterday', avatar: 'NR' },
         { id: 's', name: 'Suprit', status: 'Offline', lastMessage: "Can you review the budget prop ...", time: 'Tuesday', avatar: 'S' },
         { id: 'mt', name: 'Mayank Tiwari', status: 'Online', lastMessage: "Thanks for your help with the cli ...", time: 'Monday', avatar: 'MT' },
         { id: 'dm', name: 'District Magistrate', status: 'Offline', lastMessage: "Let's schedule a call to discusst ...", time: 'May 25', avatar: 'DM' },
@@ -25,15 +25,15 @@ function App() {
             { id: 2, sender: 'You', text: "Yes, I'm free at 10 AM. Does that work for you?", time: '08:23 AM', type: 'sent' },
             { id: 3, sender: 'Sruti Bajpayi', text: "Perfect! See you then.", time: '08:25 AM', type: 'received' },
         ],
-        'nraj': [ // Key changed from 'sl' to 'nraj'
+        'nraj': [
             { id: 1, sender: 'Nishant Raj', text: "The design team loved your presentation! Great job!", time: 'Yesterday', type: 'received' },
             { id: 2, sender: 'You', text: "That's great to hear! I'm glad they found it useful.", time: 'Yesterday', type: 'sent' },
         ],
-        's': [ // Key changed from 'rb' to 's'
+        's': [
             { id: 1, sender: 'Suprit', text: "Can you review the budget proposal by end of day?", time: 'Tuesday', type: 'received' },
             { id: 2, sender: 'You', text: "I'll take a look as soon as I can. Aiming for late afternoon.", time: 'Tuesday', type: 'sent' },
         ],
-        'mt': [ // Key changed from 'aw' to 'mt'
+        'mt': [
             { id: 1, sender: 'Mayank Tiwari', text: "Thanks for your help with the client report!", time: 'Monday', type: 'received' },
             { id: 2, sender: 'You', text: "No problem at all! Happy to help.", time: 'Monday', type: 'sent' },
         ],
@@ -61,6 +61,7 @@ function App() {
         }
     }, [filteredContacts, selectedContact]);
 
+
     const handleSendMessage = (messageContent) => {
         if (!selectedContact) return;
 
@@ -79,10 +80,10 @@ function App() {
                 sender: 'You',
                 src: messageContent.src,
                 time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                type: 'image', 
+                type: 'image',
             };
         } else {
-            return; 
+            return;
         }
 
         const currentMessages = allMessages[selectedContact.id] || [];
@@ -96,24 +97,15 @@ function App() {
         if (newMessage.type === 'sent') {
             setTimeout(() => {
                 const botReplies = [
-                    "Understood!",
-                    "Got it!",
-                    "Okay, thanks!",
-                    "Sounds good!",
-                    "Roger that!",
-                    "Will do!",
-                    "Interesting point.",
-                    "Let me look into that.",
-                    "I'll get back to you shortly.",
-                    "Acknowledged.",
-                    "Affirmative.",
-                    "Consider it done.",
+                    "Understood!", "Got it!", "Okay, thanks!", "Sounds good!",
+                    "Roger that!", "Will do!", "Interesting point.", "Let me look into that.",
+                    "I'll get back to you shortly.", "Acknowledged.", "Affirmative.", "Consider it done.",
                 ];
                 const botReply = botReplies[Math.floor(Math.random() * botReplies.length)];
 
                 const updatedMessagesAfterReply = [...updatedMessagesAfterSend, {
                     id: updatedMessagesAfterSend.length + 1,
-                    sender: selectedContact.name, 
+                    sender: selectedContact.name,
                     text: botReply,
                     time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
                     type: 'received',
@@ -123,7 +115,7 @@ function App() {
                     ...prev,
                     [selectedContact.id]: updatedMessagesAfterReply,
                 }));
-            }, 1000); 
+            }, 1000);
         }
     };
 
@@ -132,6 +124,13 @@ function App() {
             {/* Navbar */}
             <nav className="navbar">
                 <div className="navbar-left">
+                    {/* Only show menu button on small screens */}
+                    <button
+                        className="navbar-menu-button mobile-only"
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                    >
+                        <Menu className="navbar-icon" />
+                    </button>
                     <img src="https://img.icons8.com/?size=100&id=UIL5ogsYIbpU&format=png&color=000000" alt="Logo" className="navbar-logo" />
                     <span className="navbar-title">Chat App</span>
                 </div>
@@ -169,33 +168,27 @@ function App() {
                             >
                                 <Search className="navbar-icon" />
                             </button>
-                            {/* Info button with onClick handler */}
                             <button
                                 className="navbar-icon-button"
-                                onClick={() => setShowInfoModal(true)} 
-                                title="Contact Info"
+                                onClick={() => setShowInfoModal(true)}
+                                title="App Info"
                             >
                                 <Info className="navbar-icon" />
                             </button>
                         </>
                     )}
-                    <button
-                        className="navbar-menu-button"
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    >
-                        <Menu className="navbar-icon" />
-                    </button>
                 </div>
             </nav>
 
             {/* Main Content Area */}
             <div className="main-content-area">
                 {/* Sidebar */}
+                {/* Conditionally render sidebar for desktop, and control visibility for mobile */}
                 <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
                     <div className="sidebar-header">
                         <h2 className="sidebar-title">Chats</h2>
                         <button
-                            className="sidebar-close-button"
+                            className="sidebar-close-button mobile-only"
                             onClick={() => setIsSidebarOpen(false)}
                         >
                             <ChevronLeft className="sidebar-icon" />
@@ -209,9 +202,9 @@ function App() {
                                     className={`contact-item ${selectedContact?.id === contact.id ? 'contact-item-selected' : ''}`}
                                     onClick={() => {
                                         setSelectedContact(contact);
-                                        setIsSidebarOpen(false); 
-                                        setSearchQuery(''); 
-                                        setShowSearchInput(false); 
+                                        setIsSidebarOpen(false);
+                                        setSearchQuery('');
+                                        setShowSearchInput(false);
                                     }}
                                 >
                                     <div className={`contact-avatar ${contact.id === 'nr' ? 'avatar-blue' :
@@ -241,7 +234,6 @@ function App() {
                 {/* Chat Window */}
                 {selectedContact ? (
                     <div className="chat-window">
-                        {/* Chat Header */}
                         <div className="chat-header">
                             <div className={`chat-header-avatar ${selectedContact.id === 'nr' ? 'avatar-blue' :
                                 selectedContact.id === 'sb' ? 'avatar-green' :
@@ -258,10 +250,8 @@ function App() {
                             </div>
                         </div>
 
-                        {/* Messages Area */}
                         <MessagesDisplay messages={allMessages[selectedContact.id] || []} />
 
-                        {/* Message Input */}
                         <MessageInput onSendMessage={handleSendMessage} />
                     </div>
                 ) : (
@@ -294,6 +284,7 @@ function App() {
     );
 }
 
+// Messages Display Component
 function MessagesDisplay({ messages }) {
     const messagesEndRef = useRef(null);
 
@@ -318,23 +309,24 @@ function MessagesDisplay({ messages }) {
                     </div>
                 </div>
             ))}
-            <div ref={messagesEndRef} /> {/* Scroll target */}
+            <div ref={messagesEndRef} />
         </div>
     );
 }
 
+// Message Input Component
 function MessageInput({ onSendMessage }) {
     const [message, setMessage] = useState('');
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-    const fileInputRef = useRef(null); 
+    const fileInputRef = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (message.trim() === '') return; 
+        if (message.trim() === '') return;
 
         onSendMessage(message);
         setMessage('');
-        setShowEmojiPicker(false); 
+        setShowEmojiPicker(false);
     };
 
     const handleEmojiClick = (emoji) => {
@@ -346,10 +338,10 @@ function MessageInput({ onSendMessage }) {
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                onSendMessage({ type: 'image', src: e.target.result }); 
+                onSendMessage({ type: 'image', src: e.target.result });
             };
-            reader.readAsDataURL(file); 
-            event.target.value = ''; 
+            reader.readAsDataURL(file);
+            event.target.value = '';
         }
     };
 
@@ -366,16 +358,16 @@ function MessageInput({ onSendMessage }) {
             <button
                 type="button"
                 className="message-input-icon-button"
-                onClick={() => fileInputRef.current?.click()} 
+                onClick={() => fileInputRef.current?.click()}
                 title="Attach File"
             >
                 <Paperclip className="message-input-icon" />
             </button>
             <input
                 type="file"
-                accept="image/*" 
+                accept="image/*"
                 ref={fileInputRef}
-                style={{ display: 'none' }} 
+                style={{ display: 'none' }}
                 onChange={handleFileSelect}
             />
             <input
@@ -396,7 +388,6 @@ function MessageInput({ onSendMessage }) {
 
             {showEmojiPicker && (
                 <div className="emoji-picker-container">
-                    {/* Emoji grid */}
                     <span onClick={() => handleEmojiClick('😊')}>😊</span>
                     <span onClick={() => handleEmojiClick('😂')}>😂</span>
                     <span onClick={() => handleEmojiClick('❤️')}>❤️</span>

@@ -1,743 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
 
-/* Base Styles */
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #f3f4f6;
-    /* Ensure full height for app container */
-    min-height: 100vh;
-    display: flex; /* Use flexbox for body to ensure app container takes full height */
-    flex-direction: column;
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  --navbar-height: 64px;
 }
 
 .chat-app-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Use 100vh for full viewport height */
-    overflow: hidden;
-    background-color: #f3f4f6;
-    flex-grow: 1; /* Allow container to grow and fill available space */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 /* Navbar */
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    position: sticky;
-    top: 0;
-    width: 100%; /* Ensure navbar spans full width */
-    box-sizing: border-box; /* Include padding in width calculation */
+  height: var(--navbar-height);
+  background-color: #1f2937;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 
-.navbar-left {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-}
-
-.navbar-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #6466f1;
-    margin-right: 0.5rem;
-    flex-shrink: 0; /* Prevent logo from shrinking on smaller screens */
-}
-
-.navbar-title {
-    margin-left: 0.75rem;
-    font-size: 1.25rem; /* Slightly smaller for mobile */
-    font-weight: 700;
-    color: #1f2937;
-    display: none; /* Hidden by default on mobile, shown on desktop */
-}
-
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* Reduce gap for mobile */
-}
-
-.navbar-contact-name-mobile {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1f2937;
-    display: block; /* Visible by default on mobile */
-    flex-grow: 1; /* Allow it to take available space */
-    text-align: center; /* Center text if needed */
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide overflow text */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
-    margin-left: 0.5rem; /* Add some margin for spacing */
-}
-
-.navbar-contact-name-mobile-header {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin-right: auto;
-    padding-left: 1rem;
-    display: block;
-    flex-shrink: 0;
-}
-
-.navbar-icon-button {
-    padding: 0.5rem;
-    border-radius: 9999px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    flex-shrink: 0; /* Prevent button from shrinking */
-}
-
-.navbar-icon-button:hover {
-    background-color: #e5e7eb;
-}
-
-.navbar-icon {
-    width: 20px;
-    height: 20px;
-    color: #4b5563;
-}
-
-.navbar-menu-button {
-    padding: 0.5rem;
-    border-radius: 9999px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    display: block; /* Always visible on mobile */
-    margin-right: 0.5rem;
-    flex-shrink: 0;
-}
-
-.navbar-menu-button:hover {
-    background-color: #e5e7eb;
-}
-
-/* Main Content Area */
+/* Main content */
 .main-content-area {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    position: relative; /* For sidebar positioning */
+  display: flex;
+  flex: 1;
+  padding-top: var(--navbar-height);
+  transition: margin-left 0.3s ease;
 }
 
 /* Sidebar */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 256px;
-    background-color: #ffffff;
-    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
-    z-index: 20;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    /* Account for navbar height if fixed top is used */
-    padding-top: var(--navbar-height, 0px); /* Custom property for navbar height */
+  width: 256px;
+  background-color: #111827;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: var(--navbar-height);
+  left: -256px;
+  transition: left 0.3s ease;
+  z-index: 20;
+  overflow-y: auto;
 }
 
-/* Define a CSS variable for navbar height (can be set dynamically in JS if needed) */
-body {
-    --navbar-height: 64px; /* Approximate height of your navbar */
+.sidebar-open .sidebar {
+  left: 0;
 }
 
-
-.sidebar-open {
-    transform: translateX(0);
+.sidebar .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.sidebar-header {
-    padding: 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sidebar-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1f2937;
-}
-
-.sidebar-close-button {
-    padding: 0.25rem;
-    border-radius: 9999px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    display: block;
-}
-
-.sidebar-close-button:hover {
-    background-color: #e5e7eb;
-}
-
-.sidebar-icon {
-    width: 20px;
-    height: 20px;
-    color: #4b5563;
-}
-
-.contact-list {
-    overflow-y: auto;
-    flex: 1;
-    padding-bottom: 5rem;
-    padding: 0.5rem; /* Adjust padding for better spacing */
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem; /* Adjust padding */
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    border-radius: 8px;
-    margin: 0.25rem 0; /* Adjust margin */
-}
-
-.contact-item:hover {
-    background-color: #f9fafb;
-}
-
-.contact-item-selected {
-    background-color: #e0e7ff;
-}
-
-.contact-avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #ffffff;
-    flex-shrink: 0;
-}
-
-.avatar-blue { background-color: #3b82f6; }
-.avatar-green { background-color: #22c55e; }
-.avatar-purple { background-color: #a855f7; }
-.avatar-orange { background-color: #f97316; }
-.avatar-pink { background-color: #ec4899; }
-.avatar-gray { background-color: #6b7280; }
-
-.contact-info {
-    margin-left: 0.75rem;
-    flex: 1;
-    min-width: 0;
-}
-
-.contact-name-time {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.contact-name {
-    color: #1f2937;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 1; /* Allow name to grow */
-}
-
-.contact-time {
-    font-size: 0.75rem;
-    color: #6b7280;
-    white-space: nowrap;
-    margin-left: 0.5rem; /* Add some space */
-}
-
-.contact-last-message {
-    font-size: 0.875rem;
-    color: #4b5563;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.sidebar .menu li {
+  padding: 16px;
+  border-bottom: 1px solid #1f2937;
+  cursor: pointer;
 }
 
 /* Chat Window */
 .chat-window {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background-color: #f9fafb;
-    border-radius: 0;
-    margin: 0;
-    box-shadow: none;
-    overflow: hidden;
-    /* Hide chat window by default on small screens if no chat is selected */
-    /* This might need JavaScript to truly control visibility based on selection */
-    width: 100%; /* Take full width on mobile */
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  background-color: #ffffff;
+  padding: 16px;
+  overflow-y: auto;
 }
 
-.chat-placeholder {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6b7280;
-    font-size: 1.25rem;
-    padding: 1rem;
-    text-align: center;
+.chat-window.open {
+  display: flex;
 }
 
-.chat-header {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    flex-shrink: 0;
+/* Chat Input */
+.chat-input {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  display: flex;
 }
 
-.chat-header-avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px; /* Slightly smaller avatar for mobile header */
-    height: 40px;
-    border-radius: 50%;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #ffffff;
-    flex-shrink: 0;
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
-.chat-header-info {
-    margin-left: 0.75rem;
-    flex-grow: 1; /* Allow info to grow */
-    min-width: 0; /* Prevent overflow */
-}
-
-.chat-header-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1f2937;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.chat-header-status {
-    font-size: 0.875rem;
-    color: #4b5563;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.messages-display {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem; /* Slightly smaller gap for mobile */
-    background-color: #f9fafb;
-}
-
-.message-wrapper {
-    display: flex;
-}
-
-.message-sent {
-    justify-content: flex-end;
-}
-
-.message-received {
-    justify-content: flex-start;
-}
-
-.message-content {
-    max-width: 85%; /* Adjust max-width for mobile messages */
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow for mobile */
-    transition: all 0.3s ease-in-out;
-    transform: translateX(0);
-}
-
-.message-sent .message-content {
-    background-color: #4f46e5;
-    color: #ffffff;
-    border-bottom-right-radius: 0;
-}
-
-.message-received .message-content {
-    background-color: #ffffff;
-    color: #1f2937;
-    border-bottom-left-radius: 0;
-}
-
-.message-text {
-    margin-bottom: 0.25rem;
-    line-height: 1.4; /* Slightly tighter line height */
-    word-wrap: break-word;
-}
-
-.message-time {
-    font-size: 0.7rem; /* Smaller time font size */
-    display: block;
-    text-align: right;
-}
-
-.message-sent .message-time {
-    color: #c7d2fe;
-}
-
-.message-received .message-time {
-    color: #6b7280;
-}
-
-.chat-image {
-    max-width: 100%;
-    max-height: 180px; /* Slightly smaller image height for mobile */
-    width: auto;
-    height: auto;
-    border-radius: 0.25rem;
-    margin-top: 0.5rem;
-    display: block;
-    object-fit: contain;
-}
-
-/* Message Input Form */
-.message-input-form {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem; /* Adjust padding for mobile */
-    background-color: #ffffff;
-    border-top: 1px solid #e5e7eb;
-    flex-shrink: 0;
-    position: relative;
-    gap: 0.5rem; /* Add gap for spacing */
-}
-
-.message-input-icon-button {
-    padding: 0.4rem; /* Smaller padding for icon buttons */
-    border-radius: 9999px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    color: #6b7280;
-    flex-shrink: 0;
-}
-
-.message-input-icon-button:hover {
-    background-color: #f3f4f6;
-}
-
-.message-input-icon {
-    width: 22px; /* Slightly smaller icons */
-    height: 22px;
-}
-
-.message-input-field {
-    flex: 1;
-    padding: 0.6rem 1rem; /* Adjust padding for input field */
-    border-radius: 9999px;
-    background-color: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    font-size: 0.95rem; /* Slightly smaller font size */
-}
-
-.message-input-field:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
-}
-
-.message-send-button {
-    margin-left: 0; /* Remove margin-left if gap is used */
-    padding: 0.6rem 1rem; /* Adjust padding for send button */
-    background-color: #4f46e5;
-    color: #ffffff;
-    border-radius: 9999px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    flex-shrink: 0;
-}
-
-.message-send-button:hover:not(:disabled) {
-    background-color: #4338ca;
-}
-
-.message-send-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.message-send-icon {
-    width: 22px; /* Slightly smaller send icon */
-    height: 22px;
-}
-
-/* Emoji Picker */
-.emoji-picker-container {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 1rem;
-    right: 1rem; /* Allow it to span more width on mobile */
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem; /* Smaller gap for emojis */
-    width: auto; /* Auto width */
-    max-width: calc(100% - 2rem); /* Max width for mobile */
-    z-index: 30;
-    max-height: 180px; /* Adjust max height for mobile */
-    overflow-y: auto;
-    justify-content: center; /* Center emojis */
-}
-
-.emoji-picker-container span {
-    cursor: pointer;
-    font-size: 1.4rem; /* Slightly smaller emoji size */
-    padding: 0.15rem; /* Smaller padding */
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    user-select: none;
-}
-
-.emoji-picker-container span:hover {
-    background-color: #f3f4f6;
-}
-
-/* Search Input */
-.search-input-container {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    margin-right: 0.5rem;
-    background-color: #f3f4f6;
-    border-radius: 9999px;
-    padding: 0.25rem 0.75rem;
-    border: 1px solid #e5e7eb;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.search-input-container:focus-within {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
-}
-
-.search-input-field {
-    flex-grow: 1;
-    border: none;
-    background-color: transparent;
-    outline: none;
-    font-size: 0.95rem; /* Slightly smaller font size */
-    color: #1f2937;
-    padding: 0;
-}
-
-.search-input-field::placeholder {
-    color: #6b7280;
-}
-
-.clear-search-button {
-    margin-left: 0.5rem;
-    padding: 0.25rem;
-}
-
-.no-contacts-found {
-    padding: 1rem;
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.875rem;
-}
-
-/* Info Modal */
-.info-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 40;
-}
-
-.info-modal-content {
-    background-color: #ffffff;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
-    width: 400px;
-    position: relative;
-    text-align: center;
-    font-size: 0.95rem; /* Slightly smaller font size */
-    color: #1f2937;
-}
-
-.info-modal-close-button {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #4b5563;
-    padding: 0.25rem;
-    border-radius: 50%;
-    transition: background-color 0.2s ease;
-}
-
-.info-modal-close-button:hover {
-    background-color: #e5e7eb;
-}
-
-.info-modal-text {
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.info-modal-link {
-    color: #4f46e5;
-    text-decoration: underline;
-}
-
-.info-modal-link:hover {
-    color: #4338ca;
-}
-
-
-/* --- Desktop Media Queries (min-width: 768px) --- */
+/* Responsive */
 @media (min-width: 768px) {
-    .navbar-contact-name-mobile {
-        display: none; /* Hide on desktop */
-    }
+  .sidebar {
+    left: 0;
+  }
 
-    .navbar-contact-name-mobile-header {
-        display: none; /* Hide on desktop */
-    }
+  .chat-window {
+    display: flex;
+  }
 
-    .navbar-menu-button {
-        display: none; /* Hide on desktop */
-    }
-
-    .navbar-title {
-        display: block; /* Show on desktop */
-        font-size: 1.5rem; /* Original size for desktop */
-    }
-
-    .sidebar {
-        position: relative;
-        transform: translateX(0); /* Always visible on desktop */
-        width: 320px; /* Wider sidebar on desktop */
-        flex-shrink: 0;
-        box-shadow: none;
-        border-right: 1px solid #e5e7eb;
-        padding-top: 0; /* No need for padding-top if not fixed */
-    }
-
-    .sidebar-close-button {
-        display: none; /* Hide on desktop */
-    }
-
-    .chat-window {
-        margin: 1rem; /* Add margin on desktop */
-        border-radius: 0.5rem;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        width: auto; /* Allow chat window to take available width */
-    }
-
-    .message-content {
-        max-width: 70%; /* Original max-width for desktop messages */
-    }
-
-    .search-input-container {
-        flex-grow: 0;
-        width: 200px;
-        margin-left: auto;
-        margin-right: 0; /* Reset margin */
-    }
-
-    .navbar-left {
-        flex-grow: 0;
-    }
-
-    .chat-header-avatar {
-        width: 48px; /* Original avatar size for desktop header */
-        height: 48px;
-        font-size: 1.125rem;
-    }
-
-    .messages-display {
-        gap: 1rem; /* Original gap for desktop */
-    }
-
-    .message-input-form {
-        padding: 1rem; /* Original padding for desktop */
-        gap: 0.75rem; /* Adjust gap for consistency or remove if needed */
-    }
-
-    .message-input-icon {
-        width: 24px; /* Original icon size */
-        height: 24px;
-    }
-
-    .message-input-field {
-        padding: 0.75rem; /* Original padding */
-        font-size: 1rem; /* Original font size */
-    }
-
-    .message-send-button {
-        padding: 0.75rem; /* Original padding */
-    }
-
-    .message-send-icon {
-        width: 24px; /* Original icon size */
-        height: 24px;
-    }
-
-    .emoji-picker-container {
-        left: 1rem; /* Original left position */
-        right: auto; /* Reset right position */
-        width: 200px; /* Original width */
-        max-width: none; /* No max-width restriction */
-        max-height: 150px; /* Original max height */
-        justify-content: flex-start; /* Align emojis to start */
-        gap: 0.5rem; /* Original gap for emojis */
-    }
-
-    .emoji-picker-container span {
-        font-size: 1.5rem; /* Original emoji size */
-        padding: 0.2rem; /* Original padding */
-    }
-
-    .info-modal-content {
-        font-size: 1rem; /* Original font size */
-    }
-
+  .sidebar-open .main-content-area {
+    margin-left: 256px;
+  }
 }

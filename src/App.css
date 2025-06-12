@@ -1,28 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Base Styles */
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #f3f4f6;
-    /* Ensure full height for app container */
-    min-height: 100vh;
-    display: flex; /* Use flexbox for body to ensure app container takes full height */
-    flex-direction: column;
 }
 
 .chat-app-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Use 100vh for full viewport height */
+    height: 100vh;
     overflow: hidden;
     background-color: #f3f4f6;
-    flex-grow: 1; /* Allow container to grow and fill available space */
 }
 
-/* Navbar */
 .navbar {
     display: flex;
     align-items: center;
@@ -33,14 +26,12 @@ body {
     z-index: 10;
     position: sticky;
     top: 0;
-    width: 100%; /* Ensure navbar spans full width */
-    box-sizing: border-box; /* Include padding in width calculation */
+    height: 60px;
 }
 
 .navbar-left {
     display: flex;
     align-items: center;
-    flex-grow: 1;
 }
 
 .navbar-logo {
@@ -49,34 +40,30 @@ body {
     border-radius: 50%;
     background-color: #6466f1;
     margin-right: 0.5rem;
-    flex-shrink: 0; /* Prevent logo from shrinking on smaller screens */
 }
 
 .navbar-title {
     margin-left: 0.75rem;
-    font-size: 1.25rem; /* Slightly smaller for mobile */
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1f2937;
-    display: none; /* Hidden by default on mobile, shown on desktop */
+    display: block;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .navbar-right {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Reduce gap for mobile */
+    gap: 0.5rem;
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 
 .navbar-contact-name-mobile {
     font-size: 1.125rem;
     font-weight: 600;
     color: #1f2937;
-    display: block; /* Visible by default on mobile */
-    flex-grow: 1; /* Allow it to take available space */
-    text-align: center; /* Center text if needed */
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide overflow text */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
-    margin-left: 0.5rem; /* Add some margin for spacing */
+    display: none;
 }
 
 .navbar-contact-name-mobile-header {
@@ -85,9 +72,10 @@ body {
     color: #1f2937;
     margin-right: auto;
     padding-left: 1rem;
-    display: block;
+    display: none;
     flex-shrink: 0;
 }
+
 
 .navbar-icon-button {
     padding: 0.5rem;
@@ -96,7 +84,6 @@ body {
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 .navbar-icon-button:hover {
@@ -116,24 +103,20 @@ body {
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    display: block; /* Always visible on mobile */
+    display: block;
     margin-right: 0.5rem;
-    flex-shrink: 0;
 }
 
 .navbar-menu-button:hover {
     background-color: #e5e7eb;
 }
 
-/* Main Content Area */
 .main-content-area {
     display: flex;
     flex: 1;
     overflow: hidden;
-    position: relative; /* For sidebar positioning */
 }
 
-/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
@@ -147,15 +130,7 @@ body {
     transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    /* Account for navbar height if fixed top is used */
-    padding-top: var(--navbar-height, 0px); /* Custom property for navbar height */
 }
-
-/* Define a CSS variable for navbar height (can be set dynamically in JS if needed) */
-body {
-    --navbar-height: 64px; /* Approximate height of your navbar */
-}
-
 
 .sidebar-open {
     transform: translateX(0);
@@ -199,17 +174,16 @@ body {
     overflow-y: auto;
     flex: 1;
     padding-bottom: 5rem;
-    padding: 0.5rem; /* Adjust padding for better spacing */
 }
 
 .contact-item {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem; /* Adjust padding */
+    padding: 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
     border-radius: 8px;
-    margin: 0.25rem 0; /* Adjust margin */
+    margin: 0.25rem;
 }
 
 .contact-item:hover {
@@ -240,6 +214,7 @@ body {
 .avatar-pink { background-color: #ec4899; }
 .avatar-gray { background-color: #6b7280; }
 
+
 .contact-info {
     margin-left: 0.75rem;
     flex: 1;
@@ -258,14 +233,12 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex-grow: 1; /* Allow name to grow */
 }
 
 .contact-time {
     font-size: 0.75rem;
     color: #6b7280;
     white-space: nowrap;
-    margin-left: 0.5rem; /* Add some space */
 }
 
 .contact-last-message {
@@ -276,7 +249,6 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Chat Window */
 .chat-window {
     display: flex;
     flex-direction: column;
@@ -286,9 +258,6 @@ body {
     margin: 0;
     box-shadow: none;
     overflow: hidden;
-    /* Hide chat window by default on small screens if no chat is selected */
-    /* This might need JavaScript to truly control visibility based on selection */
-    width: 100%; /* Take full width on mobile */
 }
 
 .chat-placeholder {
@@ -298,8 +267,6 @@ body {
     justify-content: center;
     color: #6b7280;
     font-size: 1.25rem;
-    padding: 1rem;
-    text-align: center;
 }
 
 .chat-header {
@@ -309,42 +276,34 @@ body {
     background-color: #ffffff;
     border-bottom: 1px solid #e5e7eb;
     flex-shrink: 0;
+    height: 60px;
 }
 
 .chat-header-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px; /* Slightly smaller avatar for mobile header */
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: #ffffff;
-    flex-shrink: 0;
 }
 
 .chat-header-info {
     margin-left: 0.75rem;
-    flex-grow: 1; /* Allow info to grow */
-    min-width: 0; /* Prevent overflow */
 }
 
 .chat-header-name {
     font-size: 1.125rem;
     font-weight: 600;
     color: #1f2937;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .chat-header-status {
     font-size: 0.875rem;
     color: #4b5563;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .messages-display {
@@ -353,7 +312,7 @@ body {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem; /* Slightly smaller gap for mobile */
+    gap: 1rem;
     background-color: #f9fafb;
 }
 
@@ -370,10 +329,10 @@ body {
 }
 
 .message-content {
-    max-width: 85%; /* Adjust max-width for mobile messages */
+    max-width: 90%;
     padding: 0.75rem;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow for mobile */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
     transform: translateX(0);
 }
@@ -392,12 +351,12 @@ body {
 
 .message-text {
     margin-bottom: 0.25rem;
-    line-height: 1.4; /* Slightly tighter line height */
+    line-height: 1.5;
     word-wrap: break-word;
 }
 
 .message-time {
-    font-size: 0.7rem; /* Smaller time font size */
+    font-size: 0.75rem;
     display: block;
     text-align: right;
 }
@@ -412,7 +371,7 @@ body {
 
 .chat-image {
     max-width: 100%;
-    max-height: 180px; /* Slightly smaller image height for mobile */
+    max-height: 200px;
     width: auto;
     height: auto;
     border-radius: 0.25rem;
@@ -421,27 +380,27 @@ body {
     object-fit: contain;
 }
 
-/* Message Input Form */
+
 .message-input-form {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem; /* Adjust padding for mobile */
+    padding: 0.5rem 1rem;
     background-color: #ffffff;
     border-top: 1px solid #e5e7eb;
     flex-shrink: 0;
     position: relative;
-    gap: 0.5rem; /* Add gap for spacing */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .message-input-icon-button {
-    padding: 0.4rem; /* Smaller padding for icon buttons */
+    padding: 0.5rem;
     border-radius: 9999px;
     background-color: transparent;
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
     color: #6b7280;
-    flex-shrink: 0;
 }
 
 .message-input-icon-button:hover {
@@ -449,19 +408,18 @@ body {
 }
 
 .message-input-icon {
-    width: 22px; /* Slightly smaller icons */
-    height: 22px;
+    width: 24px;
+    height: 24px;
 }
 
 .message-input-field {
     flex: 1;
-    padding: 0.6rem 1rem; /* Adjust padding for input field */
+    padding: 0.75rem;
     border-radius: 9999px;
     background-color: #f3f4f6;
     border: 1px solid #e5e7eb;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    font-size: 0.95rem; /* Slightly smaller font size */
 }
 
 .message-input-field:focus {
@@ -470,15 +428,14 @@ body {
 }
 
 .message-send-button {
-    margin-left: 0; /* Remove margin-left if gap is used */
-    padding: 0.6rem 1rem; /* Adjust padding for send button */
+    margin-left: 0.5rem;
+    padding: 0.75rem;
     background-color: #4f46e5;
     color: #ffffff;
     border-radius: 9999px;
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    flex-shrink: 0;
 }
 
 .message-send-button:hover:not(:disabled) {
@@ -491,35 +448,31 @@ body {
 }
 
 .message-send-icon {
-    width: 22px; /* Slightly smaller send icon */
-    height: 22px;
+    width: 24px;
+    height: 24px;
 }
 
-/* Emoji Picker */
 .emoji-picker-container {
     position: absolute;
     bottom: calc(100% + 10px);
     left: 1rem;
-    right: 1rem; /* Allow it to span more width on mobile */
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 0.5rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem; /* Smaller gap for emojis */
-    width: auto; /* Auto width */
-    max-width: calc(100% - 2rem); /* Max width for mobile */
+    gap: 0.5rem;
+    width: 200px;
     z-index: 30;
-    max-height: 180px; /* Adjust max height for mobile */
+    max-height: 150px;
     overflow-y: auto;
-    justify-content: center; /* Center emojis */
 }
 
 .emoji-picker-container span {
     cursor: pointer;
-    font-size: 1.4rem; /* Slightly smaller emoji size */
-    padding: 0.15rem; /* Smaller padding */
+    font-size: 1.5rem;
+    padding: 0.2rem;
     border-radius: 4px;
     transition: background-color 0.2s ease;
     user-select: none;
@@ -529,7 +482,6 @@ body {
     background-color: #f3f4f6;
 }
 
-/* Search Input */
 .search-input-container {
     display: flex;
     align-items: center;
@@ -552,7 +504,7 @@ body {
     border: none;
     background-color: transparent;
     outline: none;
-    font-size: 0.95rem; /* Slightly smaller font size */
+    font-size: 1rem;
     color: #1f2937;
     padding: 0;
 }
@@ -573,7 +525,6 @@ body {
     font-size: 0.875rem;
 }
 
-/* Info Modal */
 .info-modal-overlay {
     position: fixed;
     top: 0;
@@ -596,7 +547,7 @@ body {
     width: 400px;
     position: relative;
     text-align: center;
-    font-size: 0.95rem; /* Slightly smaller font size */
+    font-size: 1rem;
     color: #1f2937;
 }
 
@@ -631,113 +582,111 @@ body {
     color: #4338ca;
 }
 
+.navbar-right .navbar-icon-button {
+    display: block;
+}
 
-/* --- Desktop Media Queries (min-width: 768px) --- */
+.navbar-contact-name-mobile-header {
+    display: block;
+}
+
+.navbar.search-active .navbar-title,
+.navbar.search-active .navbar-logo,
+.navbar.search-active .navbar-menu-button {
+    display: none;
+}
+
+.navbar.search-active .navbar-left {
+    flex-grow: 0;
+}
+
+.navbar.search-active .navbar-right {
+    flex-grow: 1;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.navbar.search-active .navbar-right .navbar-icon-button:not(.clear-search-button) {
+    display: none;
+}
+
+.navbar-title {
+    font-size: 1.25rem;
+}
+
+.chat-header-menu-button {
+    display: block;
+    margin-right: 1rem;
+}
+
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.messages-display {
+    flex: 1;
+    overflow-y: auto;
+}
+
 @media (min-width: 768px) {
     .navbar-contact-name-mobile {
-        display: none; /* Hide on desktop */
+        display: block;
     }
 
     .navbar-contact-name-mobile-header {
-        display: none; /* Hide on desktop */
+        display: none;
     }
 
     .navbar-menu-button {
-        display: none; /* Hide on desktop */
-    }
-
-    .navbar-title {
-        display: block; /* Show on desktop */
-        font-size: 1.5rem; /* Original size for desktop */
+        display: none;
     }
 
     .sidebar {
         position: relative;
-        transform: translateX(0); /* Always visible on desktop */
-        width: 320px; /* Wider sidebar on desktop */
+        transform: translateX(0);
+        width: 320px;
         flex-shrink: 0;
         box-shadow: none;
         border-right: 1px solid #e5e7eb;
-        padding-top: 0; /* No need for padding-top if not fixed */
     }
 
     .sidebar-close-button {
-        display: none; /* Hide on desktop */
+        display: none;
     }
 
     .chat-window {
-        margin: 1rem; /* Add margin on desktop */
+        margin: 1rem;
         border-radius: 0.5rem;
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        width: auto; /* Allow chat window to take available width */
     }
 
     .message-content {
-        max-width: 70%; /* Original max-width for desktop messages */
+        max-width: 70%;
     }
 
     .search-input-container {
         flex-grow: 0;
         width: 200px;
         margin-left: auto;
-        margin-right: 0; /* Reset margin */
     }
 
     .navbar-left {
         flex-grow: 0;
     }
 
-    .chat-header-avatar {
-        width: 48px; /* Original avatar size for desktop header */
-        height: 48px;
-        font-size: 1.125rem;
+    .navbar-title {
+        display: block;
+        font-size: 1.5rem;
     }
 
-    .messages-display {
-        gap: 1rem; /* Original gap for desktop */
+    .chat-header-menu-button {
+        display: none;
     }
 
-    .message-input-form {
-        padding: 1rem; /* Original padding for desktop */
-        gap: 0.75rem; /* Adjust gap for consistency or remove if needed */
+    .navbar.search-active .navbar-title {
+        display: block;
+        opacity: 1;
     }
-
-    .message-input-icon {
-        width: 24px; /* Original icon size */
-        height: 24px;
-    }
-
-    .message-input-field {
-        padding: 0.75rem; /* Original padding */
-        font-size: 1rem; /* Original font size */
-    }
-
-    .message-send-button {
-        padding: 0.75rem; /* Original padding */
-    }
-
-    .message-send-icon {
-        width: 24px; /* Original icon size */
-        height: 24px;
-    }
-
-    .emoji-picker-container {
-        left: 1rem; /* Original left position */
-        right: auto; /* Reset right position */
-        width: 200px; /* Original width */
-        max-width: none; /* No max-width restriction */
-        max-height: 150px; /* Original max height */
-        justify-content: flex-start; /* Align emojis to start */
-        gap: 0.5rem; /* Original gap for emojis */
-    }
-
-    .emoji-picker-container span {
-        font-size: 1.5rem; /* Original emoji size */
-        padding: 0.2rem; /* Original padding */
-    }
-
-    .info-modal-content {
-        font-size: 1rem; /* Original font size */
-    }
-
 }

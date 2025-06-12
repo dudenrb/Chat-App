@@ -26,12 +26,12 @@ body {
     z-index: 10;
     position: sticky;
     top: 0;
+    height: 60px;
 }
 
 .navbar-left {
     display: flex;
     align-items: center;
-    flex-grow: 1;
 }
 
 .navbar-logo {
@@ -44,16 +44,19 @@ body {
 
 .navbar-title {
     margin-left: 0.75rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1f2937;
     display: block;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .navbar-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 
 .navbar-contact-name-mobile {
@@ -69,7 +72,7 @@ body {
     color: #1f2937;
     margin-right: auto;
     padding-left: 1rem;
-    display: block;
+    display: none;
     flex-shrink: 0;
 }
 
@@ -273,6 +276,7 @@ body {
     background-color: #ffffff;
     border-bottom: 1px solid #e5e7eb;
     flex-shrink: 0;
+    height: 60px;
 }
 
 .chat-header-avatar {
@@ -380,11 +384,13 @@ body {
 .message-input-form {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     background-color: #ffffff;
     border-top: 1px solid #e5e7eb;
     flex-shrink: 0;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .message-input-icon-button {
@@ -576,6 +582,54 @@ body {
     color: #4338ca;
 }
 
+.navbar-right .navbar-icon-button {
+    display: block;
+}
+
+.navbar-contact-name-mobile-header {
+    display: block;
+}
+
+.navbar.search-active .navbar-title,
+.navbar.search-active .navbar-logo,
+.navbar.search-active .navbar-menu-button {
+    display: none;
+}
+
+.navbar.search-active .navbar-left {
+    flex-grow: 0;
+}
+
+.navbar.search-active .navbar-right {
+    flex-grow: 1;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.navbar.search-active .navbar-right .navbar-icon-button:not(.clear-search-button) {
+    display: none;
+}
+
+.navbar-title {
+    font-size: 1.25rem;
+}
+
+.chat-header-menu-button {
+    display: block;
+    margin-right: 1rem;
+}
+
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.messages-display {
+    flex: 1;
+    overflow-y: auto;
+}
+
 @media (min-width: 768px) {
     .navbar-contact-name-mobile {
         display: block;
@@ -624,5 +678,15 @@ body {
 
     .navbar-title {
         display: block;
+        font-size: 1.5rem;
+    }
+
+    .chat-header-menu-button {
+        display: none;
+    }
+
+    .navbar.search-active .navbar-title {
+        display: block;
+        opacity: 1;
     }
 }

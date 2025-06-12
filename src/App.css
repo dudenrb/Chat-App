@@ -31,6 +31,7 @@ body {
 .navbar-left {
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 .navbar-logo {
@@ -38,6 +39,7 @@ body {
     height: 40px;
     border-radius: 50%;
     background-color: #6466f1;
+    margin-right: 0.5rem;
 }
 
 .navbar-title {
@@ -45,6 +47,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: #1f2937;
+    display: block;
 }
 
 .navbar-right {
@@ -67,6 +70,7 @@ body {
     margin-right: auto;
     padding-left: 1rem;
     display: block;
+    flex-shrink: 0;
 }
 
 
@@ -96,6 +100,8 @@ body {
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    display: block;
+    margin-right: 0.5rem;
 }
 
 .navbar-menu-button:hover {
@@ -570,7 +576,6 @@ body {
     color: #4338ca;
 }
 
-
 @media (min-width: 768px) {
     .navbar-contact-name-mobile {
         display: block;
@@ -608,7 +613,16 @@ body {
     }
 
     .search-input-container {
-        flex-grow: 1;
-        max-width: 300px;
+        flex-grow: 0;
+        width: 200px;
+        margin-left: auto;
+    }
+
+    .navbar-left {
+        flex-grow: 0;
+    }
+
+    .navbar-title {
+        display: block;
     }
 }

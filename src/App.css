@@ -31,7 +31,6 @@ body {
 .navbar-left {
     display: flex;
     align-items: center;
-    flex-grow: 1;
 }
 
 .navbar-logo {
@@ -54,6 +53,8 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 
 .navbar-contact-name-mobile {
@@ -625,4 +626,27 @@ body {
     .navbar-title {
         display: block;
     }
+}
+
+.navbar.search-active .navbar-title {
+    display: none;
+}
+
+.navbar.search-active .navbar-left {
+    flex-grow: 0;
+}
+
+.navbar.search-active .navbar-right {
+    flex-grow: 1;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.navbar.search-active .navbar-right .navbar-icon-button:not(.clear-search-button) {
+    display: none;
+}
+
+.navbar.search-active .search-input-container {
+    flex-grow: 1;
+    margin-right: 0;
 }

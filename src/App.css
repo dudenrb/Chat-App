@@ -43,8 +43,8 @@ body {
 }
 
 .navbar-title {
-    margin-left: 0.75rem;
-    font-size: 1.25rem;
+    margin-left: 0.55rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #1f2937;
     display: block;
@@ -66,15 +66,6 @@ body {
     display: none;
 }
 
-.navbar-contact-name-mobile-header {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin-right: auto;
-    padding-left: 1rem;
-    display: none;
-    flex-shrink: 0;
-}
 
 
 .navbar-icon-button {

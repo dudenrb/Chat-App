@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, Search, Send, Smile, Paperclip, ChevronLeft, Info, X } from 'lucide-react';
+import './App.css';
 
-// Main App component
 function App() {
     const [selectedContact, setSelectedContact] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);

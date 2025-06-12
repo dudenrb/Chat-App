@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, Search, Send, Smile, Paperclip, ChevronLeft, Info, X } from 'lucide-react';
-import './App.css'; 
+
+// Main App component
 function App() {
     const [selectedContact, setSelectedContact] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -121,11 +122,10 @@ function App() {
     return (
         <div className="chat-app-container">
             {/* Navbar */}
-            <nav className="navbar">
+            <nav className={`navbar ${showSearchInput ? 'search-active' : ''}`}>
                 <div className="navbar-left">
-                    {/* Only show menu button on small screens */}
                     <button
-                        className="navbar-menu-button mobile-only"
+                        className="navbar-menu-button"
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     >
                         <Menu className="navbar-icon" />
@@ -156,6 +156,7 @@ function App() {
                     ) : (
                         <>
                             {selectedContact && (
+                                // This span should be hidden on mobile when not in search
                                 <span className="navbar-contact-name-mobile-header">
                                     {selectedContact.name}
                                 </span>
@@ -182,12 +183,11 @@ function App() {
             {/* Main Content Area */}
             <div className="main-content-area">
                 {/* Sidebar */}
-                {/* Conditionally render sidebar for desktop, and control visibility for mobile */}
                 <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
                     <div className="sidebar-header">
                         <h2 className="sidebar-title">Chats</h2>
                         <button
-                            className="sidebar-close-button mobile-only"
+                            className="sidebar-close-button"
                             onClick={() => setIsSidebarOpen(false)}
                         >
                             <ChevronLeft className="sidebar-icon" />
@@ -234,6 +234,13 @@ function App() {
                 {selectedContact ? (
                     <div className="chat-window">
                         <div className="chat-header">
+                            {/* Re-add menu button for mobile chat header */}
+                            <button
+                                className="navbar-menu-button chat-header-menu-button"
+                                onClick={() => setIsSidebarOpen(true)} // Open sidebar from chat header
+                            >
+                                <ChevronLeft className="navbar-icon" />
+                            </button>
                             <div className={`chat-header-avatar ${selectedContact.id === 'nr' ? 'avatar-blue' :
                                 selectedContact.id === 'sb' ? 'avatar-green' :
                                 selectedContact.id === 'nraj' ? 'avatar-purple' :
